@@ -144,6 +144,7 @@ class OpLatencyTable(object):
 
     def report(self):
         print("Op latency table:")
+        print("INFO: 0 ms latency means the op is merged into another op")
         print("----------------------------------------------------")
         for k, v in self.latency_table.items():
             print("{}: {} ms".format(k, v))
