@@ -1,2 +1,2 @@
 # PokeBNN_larq
-please replace the quantizer.py of the original file of larq module.
+please replace the quantizers.py of the original file of larq module.
