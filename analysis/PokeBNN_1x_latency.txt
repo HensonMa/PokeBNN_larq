@@ -1,0 +1,450 @@
+STARTING!
+Log parameter values verbosely: [0]
+Graph: [PokeBNN_1x.tflite]
+Enable op profiling: [1]
+Loaded model PokeBNN_1x.tflite
+The input model file size (MB): 25.6724
+Initialized session in 326.27ms.
+Running benchmark for at least 1 iterations and at least 0.5 seconds but terminate if exceeding 150 seconds.
+count=1 curr=1335104
+
+Running benchmark for at least 50 iterations and at least 1 seconds but terminate if exceeding 150 seconds.
+count=50 first=1026995 curr=1023140 min=1019977 max=1030168 avg=1.02491e+06 std=2197
+
+Inference timings in us: Init: 326270, First inference: 1335104, Warmup (avg): 1.3351e+06, Inference (avg): 1.02491e+06
+Note: as the benchmark tool itself affects memory footprint, the following is only APPROXIMATE to the actual memory footprint of the model at runtime. Take the information at your discretion.
+Memory footprint delta from the start of the tool (MB): init=56.1523 overall=279.164
+Profiling Info for Benchmark Initialization:
+============================== Run Order ==============================
+	             [node type]	          [start]	  [first]	 [avg ms]	     [%]	  [cdf%]	  [mem KB]	[times called]	[Name]
+	 ModifyGraphWithDelegate	            0.000	  315.372	  315.372	 98.820%	 98.820%	 48764.000	        1	ModifyGraphWithDelegate/0
+	         AllocateTensors	          313.488	    3.761	    1.883	  1.180%	100.000%	     0.000	        2	AllocateTensors/0
+
+============================== Top by Computation Time ==============================
+	             [node type]	          [start]	  [first]	 [avg ms]	     [%]	  [cdf%]	  [mem KB]	[times called]	[Name]
+	 ModifyGraphWithDelegate	            0.000	  315.372	  315.372	 98.820%	 98.820%	 48764.000	        1	ModifyGraphWithDelegate/0
+	         AllocateTensors	          313.488	    3.761	    1.883	  1.180%	100.000%	     0.000	        2	AllocateTensors/0
+
+Number of nodes executed: 2
+============================== Summary by node type ==============================
+	             [Node type]	  [count]	  [avg ms]	    [avg %]	    [cdf %]	  [mem KB]	[times called]
+	 ModifyGraphWithDelegate	        1	   315.372	    98.820%	    98.820%	 48764.004	        1
+	         AllocateTensors	        1	     3.766	     1.180%	   100.000%	     0.000	        2
+
+Timings (microseconds): count=1 curr=319138
+Memory (bytes): count=0
+2 nodes observed
+
+
+
+Operator-wise Profiling Info for Regular Benchmark Runs:
+============================== Run Order ==============================
+	             [node type]	          [start]	  [first]	 [avg ms]	     [%]	  [cdf%]	  [mem KB]	[times called]	[Name]
+	   TfLiteXNNPackDelegate	            0.023	    2.924	    2.998	  0.293%	  0.293%	     0.000	        1	[model/quant_conv2d/poke_sign_2/Round;model/quant_c]:1409
+	                 CONV_2D	            3.023	    5.099	    4.780	  0.467%	  0.759%	     0.000	        1	[model/dp_re_lu/sub;model/dp_re_lu/sub;model/batch_1]:5
+	                 GREATER	            7.806	    0.576	    0.583	  0.057%	  0.816%	     0.000	        1	[model/dp_re_lu/Greater;model/dp_re_lu/Greater]:6
+	               SELECT_V2	            8.390	    0.987	    0.937	  0.091%	  0.908%	     0.000	        1	[model/dp_re_lu/SelectV2;model/dp_re_lu/SelectV2]:7
+	   TfLiteXNNPackDelegate	            9.328	   17.361	   17.308	  1.690%	  2.598%	     0.000	        1	[model/dp_re_lu_1/sub;model/dp_re_lu_1/sub]:1410
+	                 GREATER	           26.640	    1.068	    1.085	  0.106%	  2.704%	     0.000	        1	[model/dp_re_lu_1/Greater;model/dp_re_lu_1/Greater]:17
+	               SELECT_V2	           27.728	    1.901	    1.816	  0.177%	  2.881%	     0.000	        1	[model/dp_re_lu_1/SelectV2;model/dp_re_lu_1/SelectV]:18
+	   TfLiteXNNPackDelegate	           29.545	    3.321	    3.255	  0.318%	  3.199%	     0.000	        1	[model/dp_re_lu_1/sub_1;model/dp_re_lu_1/sub_1, model/tf.math.truediv/truediv;model/tf.math.truedi1]:1411
+	             LceQuantize	           32.802	    0.312	    0.287	  0.028%	  3.227%	     0.000	        1	[model/PokeConv_0_1_conv/poke_sign/Sign_1;model/Pok]:21
+	              LceBconv2d	           33.090	    1.557	    1.597	  0.156%	  3.383%	     0.000	        1	[model/batch_normalization_2/FusedBatchNormV3;model1]:22
+	                    TILE	           34.690	    4.435	    4.412	  0.431%	  3.814%	     0.000	        1	[model/tf.tile/Tile;model/tf.tile/Tile]:92
+	   TfLiteXNNPackDelegate	           39.105	    2.897	    2.899	  0.283%	  4.097%	     0.000	        1	[model/dp_re_lu_2/sub;model/dp_re_lu_2/sub]:1412
+	                 GREATER	           42.008	    1.086	    1.078	  0.105%	  4.202%	     0.000	        1	[model/dp_re_lu_2/Greater;model/dp_re_lu_2/Greater]:40
+	               SELECT_V2	           43.087	    1.858	    1.828	  0.179%	  4.381%	     0.000	        1	[model/dp_re_lu_2/SelectV2;model/dp_re_lu_2/SelectV]:41
+	   TfLiteXNNPackDelegate	           44.917	    5.732	    5.885	  0.575%	  4.955%	     0.000	        1	[model/batch_normalization_3/FusedBatchNormV3;model1, model/tf.math.truediv_1/truediv;model/tf.math.true]:1413
+	             LceQuantize	           50.804	    0.244	    0.253	  0.025%	  4.980%	     0.000	        1	[model/PokeConv_0_2_conv/poke_sign/Sign_1;model/Pok]:47
+	              LceBconv2d	           51.058	    4.626	    4.642	  0.453%	  5.433%	     0.000	        1	[model/batch_normalization_4/FusedBatchNormV3;model1]:48
+	   TfLiteXNNPackDelegate	           55.702	    2.701	    2.676	  0.261%	  5.694%	     0.000	        1	[model/dp_re_lu_3/sub;model/dp_re_lu_3/sub]:1414
+	                 GREATER	           58.382	    1.057	    1.082	  0.106%	  5.800%	     0.000	        1	[model/dp_re_lu_3/Greater;model/dp_re_lu_3/Greater]:66
+	               SELECT_V2	           59.465	    1.835	    1.816	  0.177%	  5.977%	     0.000	        1	[model/dp_re_lu_3/SelectV2;model/dp_re_lu_3/SelectV]:67
+	   TfLiteXNNPackDelegate	           61.282	    8.000	    8.027	  0.784%	  6.761%	     0.000	        1	[model/batch_normalization_5/FusedBatchNormV3;model1, model/tf.math.truediv_2/truediv;model/tf.math.true, model/zero_padding2d/Pad;model/zero_padding2d/Pad]:1415
+	             LceQuantize	           69.313	    1.024	    0.873	  0.085%	  6.846%	     0.000	        1	[model/PokeConv_0_3_conv/poke_sign/Sign_1;model/Pok]:73
+	              LceBconv2d	           70.187	    6.129	    6.168	  0.602%	  7.449%	     0.000	        1	[model/batch_normalization_6/FusedBatchNormV3;model1]:74
+	   TfLiteXNNPackDelegate	           76.359	   16.372	   16.306	  1.592%	  9.041%	     0.000	        1	[model/dp_re_lu_4/sub;model/dp_re_lu_4/sub]:1416
+	                 GREATER	           92.668	    4.093	    4.110	  0.401%	  9.442%	     0.000	        1	[model/dp_re_lu_4/Greater;model/dp_re_lu_4/Greater]:95
+	               SELECT_V2	           96.780	    6.817	    6.880	  0.672%	 10.114%	     0.000	        1	[model/dp_re_lu_4/SelectV2;model/dp_re_lu_4/SelectV]:96
+	   TfLiteXNNPackDelegate	          103.662	   25.306	   25.428	  2.483%	 12.597%	     0.000	        1	[model/batch_normalization_7/FusedBatchNormV3;model1, model/tf.math.truediv_3/truediv;model/tf.math.true]:1417
+	             LceQuantize	          129.093	    2.453	    2.493	  0.243%	 12.840%	     0.000	        1	[model/PokeConv_1_1_conv/poke_sign/Sign_1;model/Pok]:102
+	              LceBconv2d	          131.589	    2.102	    2.070	  0.202%	 13.043%	     0.000	        1	[model/batch_normalization_8/FusedBatchNormV3;model1]:103
+	           STRIDED_SLICE	          133.662	    3.758	    3.773	  0.368%	 13.411%	     0.000	        1	[model/tf.__operators__.getitem/strided_slice;model]:119
+	   TfLiteXNNPackDelegate	          137.438	    3.063	    3.118	  0.304%	 13.716%	     0.000	        1	[model/average_pooling1d/ExpandDims;model/average_p]:1418
+	               TRANSPOSE	          140.559	   10.498	   10.496	  1.025%	 14.740%	     0.000	        1	[model/average_pooling1d/transpose;model/average_po]:121
+	   TfLiteXNNPackDelegate	          151.059	    5.818	    5.708	  0.557%	 15.298%	     0.000	        1	[model/average_pooling1d/AvgPool;model/average_pool]:1419
+	               TRANSPOSE	          156.770	    2.708	    2.736	  0.267%	 15.565%	     0.000	        1	[model/average_pooling1d/transpose_1;model/average_]:123
+	   TfLiteXNNPackDelegate	          159.509	    3.258	    3.251	  0.317%	 15.882%	     0.000	        1	[model/dp_re_lu_5/sub;model/dp_re_lu_5/sub]:1420
+	                 GREATER	          162.762	    1.053	    1.072	  0.105%	 15.987%	     0.000	        1	[model/dp_re_lu_5/Greater;model/dp_re_lu_5/Greater]:127
+	               SELECT_V2	          163.835	    1.407	    1.393	  0.136%	 16.123%	     0.000	        1	[model/dp_re_lu_5/SelectV2;model/dp_re_lu_5/SelectV]:128
+	   TfLiteXNNPackDelegate	          165.230	    5.696	    6.073	  0.593%	 16.716%	     0.000	        1	[model/batch_normalization_9/FusedBatchNormV3;model1, model/tf.math.truediv_4/truediv;model/tf.math.true]:1421
+	             LceQuantize	          171.305	    0.254	    0.257	  0.025%	 16.741%	     0.000	        1	[model/PokeConv_1_2_conv/poke_sign/Sign_1;model/Pok]:134
+	              LceBconv2d	          171.563	    4.709	    4.639	  0.453%	 17.194%	     0.000	        1	[model/batch_normalization_10/FusedBatchNormV3;mode1]:135
+	   TfLiteXNNPackDelegate	          176.205	    2.719	    2.713	  0.265%	 17.459%	     0.000	        1	[model/dp_re_lu_6/sub;model/dp_re_lu_6/sub]:1422
+	                 GREATER	          178.921	    1.060	    1.078	  0.105%	 17.564%	     0.000	        1	[model/dp_re_lu_6/Greater;model/dp_re_lu_6/Greater]:153
+	               SELECT_V2	          180.000	    1.442	    1.391	  0.136%	 17.700%	     0.000	        1	[model/dp_re_lu_6/SelectV2;model/dp_re_lu_6/SelectV]:154
+	   TfLiteXNNPackDelegate	          181.392	    9.166	    8.094	  0.790%	 18.490%	     0.000	        1	[model/batch_normalization_11/FusedBatchNormV3;mode1, model/tf.math.truediv_5/truediv;model/tf.math.true, model/zero_padding2d_1/Pad;model/zero_padding2d_1/]:1423
+	             LceQuantize	          189.491	    0.190	    0.914	  0.089%	 18.580%	     0.000	        1	[model/PokeConv_1_3_conv/poke_sign/Sign_1;model/Pok]:160
+	              LceBconv2d	          190.405	    6.031	    6.164	  0.602%	 19.182%	     0.000	        1	[model/batch_normalization_12/FusedBatchNormV3;mode1]:161
+	   TfLiteXNNPackDelegate	          196.574	   16.326	   16.338	  1.595%	 20.777%	     0.000	        1	[model/dp_re_lu_7/sub;model/dp_re_lu_7/sub]:1424
+	                 GREATER	          212.916	    4.097	    4.109	  0.401%	 21.178%	     0.000	        1	[model/dp_re_lu_7/Greater;model/dp_re_lu_7/Greater]:181
+	               SELECT_V2	          217.028	    6.552	    6.611	  0.646%	 21.824%	     0.000	        1	[model/dp_re_lu_7/SelectV2;model/dp_re_lu_7/SelectV]:182
+	   TfLiteXNNPackDelegate	          223.641	   25.433	   25.539	  2.494%	 24.317%	     0.000	        1	[model/batch_normalization_13/FusedBatchNormV3;mode1, model/tf.math.truediv_6/truediv;model/tf.math.true]:1425
+	             LceQuantize	          249.185	    2.436	    2.513	  0.245%	 24.563%	     0.000	        1	[model/PokeConv_2_1_conv/poke_sign/Sign_1;model/Pok]:188
+	              LceBconv2d	          251.701	    2.093	    2.071	  0.202%	 24.765%	     0.000	        1	[model/batch_normalization_14/FusedBatchNormV3;mode1]:189
+	           STRIDED_SLICE	          253.774	    3.767	    3.768	  0.368%	 25.133%	     0.000	        1	[model/tf.__operators__.getitem_1/strided_slice;mod]:205
+	   TfLiteXNNPackDelegate	          257.545	    3.064	    3.121	  0.305%	 25.438%	     0.000	        1	[model/average_pooling1d_1/ExpandDims;model/average]:1426
+	               TRANSPOSE	          260.669	   10.503	   10.501	  1.025%	 26.463%	     0.000	        1	[model/average_pooling1d_1/transpose;model/average_]:207
+	   TfLiteXNNPackDelegate	          271.173	    5.691	    5.724	  0.559%	 27.022%	     0.000	        1	[model/average_pooling1d_1/AvgPool;model/average_po]:1427
+	               TRANSPOSE	          276.901	    2.850	    2.751	  0.269%	 27.291%	     0.000	        1	[model/average_pooling1d_1/transpose_1;model/averag]:209
+	   TfLiteXNNPackDelegate	          279.654	    3.241	    3.247	  0.317%	 27.608%	     0.000	        1	[model/dp_re_lu_8/sub;model/dp_re_lu_8/sub]:1428
+	                 GREATER	          282.904	    1.059	    1.085	  0.106%	 27.714%	     0.000	        1	[model/dp_re_lu_8/Greater;model/dp_re_lu_8/Greater]:213
+	               SELECT_V2	          283.991	    1.563	    1.351	  0.132%	 27.846%	     0.000	        1	[model/dp_re_lu_8/SelectV2;model/dp_re_lu_8/SelectV]:214
+	   TfLiteXNNPackDelegate	          285.343	    5.709	    6.025	  0.588%	 28.434%	     0.000	        1	[model/batch_normalization_15/FusedBatchNormV3;mode1, model/tf.math.truediv_7/truediv;model/tf.math.true]:1429
+	             LceQuantize	          291.371	    0.263	    0.262	  0.026%	 28.460%	     0.000	        1	[model/PokeConv_2_2_conv/poke_sign/Sign_1;model/Pok]:220
+	              LceBconv2d	          291.634	    4.606	    4.631	  0.452%	 28.912%	     0.000	        1	[model/batch_normalization_16/FusedBatchNormV3;mode1]:221
+	   TfLiteXNNPackDelegate	          296.269	    2.720	    2.699	  0.264%	 29.175%	     0.000	        1	[model/dp_re_lu_9/sub;model/dp_re_lu_9/sub]:1430
+	                 GREATER	          298.971	    1.054	    1.074	  0.105%	 29.280%	     0.000	        1	[model/dp_re_lu_9/Greater;model/dp_re_lu_9/Greater]:239
+	               SELECT_V2	          300.046	    1.383	    1.343	  0.131%	 29.411%	     0.000	        1	[model/dp_re_lu_9/SelectV2;model/dp_re_lu_9/SelectV]:240
+	   TfLiteXNNPackDelegate	          301.390	    6.752	    7.824	  0.764%	 30.175%	     0.000	        1	[model/batch_normalization_17/FusedBatchNormV3;mode2, model/tf.math.truediv_8/truediv;model/tf.math.true, model/zero_padding2d_2/Pad;model/zero_padding2d_2/]:1431
+	             LceQuantize	          309.218	    0.187	    0.779	  0.076%	 30.251%	     0.000	        1	[model/PokeConv_2_3_conv/poke_sign/Sign_1;model/Pok]:246
+	              LceBconv2d	          309.998	    6.111	    6.157	  0.601%	 30.853%	     0.000	        1	[model/batch_normalization_18/FusedBatchNormV3;mode1]:247
+	   TfLiteXNNPackDelegate	          316.159	   16.368	   16.442	  1.606%	 32.458%	     0.000	        1	[model/dp_re_lu_10/sub;model/dp_re_lu_10/sub]:1432
+	                 GREATER	          332.604	    4.102	    4.108	  0.401%	 32.859%	     0.000	        1	[model/dp_re_lu_10/Greater;model/dp_re_lu_10/Greate]:267
+	               SELECT_V2	          336.716	    6.474	    6.490	  0.634%	 33.493%	     0.000	        1	[model/dp_re_lu_10/SelectV2;model/dp_re_lu_10/Selec]:268
+	   TfLiteXNNPackDelegate	          343.207	   26.095	   25.741	  2.514%	 36.007%	     0.000	        1	[model/batch_normalization_19/FusedBatchNormV3;mode1, model/tf.math.truediv_9/truediv;model/tf.math.true]:1433
+	             LceQuantize	          368.952	    2.604	    2.505	  0.245%	 36.251%	     0.000	        1	[model/PokeConv_3_1_conv/poke_sign/Sign_1;model/Pok]:274
+	              LceBconv2d	          371.459	    4.029	    4.042	  0.395%	 36.646%	     0.000	        1	[model/batch_normalization_20/FusedBatchNormV3;mode1]:275
+	           STRIDED_SLICE	          375.505	    3.904	    3.935	  0.384%	 37.030%	     0.000	        1	[model/tf.__operators__.getitem_2/strided_slice;mod]:291
+	                    TILE	          379.444	    8.232	    8.148	  0.796%	 37.826%	     0.000	        1	[model/tf.tile_1/Tile;model/tf.tile_1/Tile]:352
+	   TfLiteXNNPackDelegate	          387.596	   24.185	   24.163	  2.359%	 40.185%	     0.000	        1	[model/average_pooling1d_2/ExpandDims;model/average1, model/average_pooling2d_1/AvgPool;model/average_po]:1434
+	               TRANSPOSE	          411.762	   10.694	   10.615	  1.037%	 41.222%	     0.000	        1	[model/average_pooling1d_2/transpose;model/average_]:293
+	   TfLiteXNNPackDelegate	          422.381	    6.907	    6.966	  0.680%	 41.902%	     0.000	        1	[model/average_pooling1d_2/AvgPool;model/average_po]:1435
+	               TRANSPOSE	          429.350	    9.275	    9.258	  0.904%	 42.806%	     0.000	        1	[model/average_pooling1d_2/transpose_1;model/averag]:295
+	   TfLiteXNNPackDelegate	          438.611	    6.509	    6.574	  0.642%	 43.448%	     0.000	        1	[model/dp_re_lu_11/sub;model/dp_re_lu_11/sub]:1436
+	                 GREATER	          445.188	    2.092	    2.069	  0.202%	 43.650%	     0.000	        1	[model/dp_re_lu_11/Greater;model/dp_re_lu_11/Greate]:299
+	               SELECT_V2	          447.259	    2.908	    2.955	  0.289%	 43.938%	     0.000	        1	[model/dp_re_lu_11/SelectV2;model/dp_re_lu_11/Selec]:300
+	   TfLiteXNNPackDelegate	          450.216	   17.292	   16.143	  1.576%	 45.515%	     0.000	        1	[model/batch_normalization_21/FusedBatchNormV3;mode1, model/average_pooling2d/AvgPool;model/average_pool, model/tf.math.truediv_10/truediv;model/tf.math.tru]:1437
+	             LceQuantize	          466.362	    1.022	    1.037	  0.101%	 45.616%	     0.000	        1	[model/PokeConv_3_2_conv/poke_sign/Sign_1;model/Pok]:306
+	              LceBconv2d	          467.401	    3.718	    3.707	  0.362%	 45.978%	     0.000	        1	[model/batch_normalization_22/FusedBatchNormV3;mode1]:307
+	   TfLiteXNNPackDelegate	          471.110	    1.159	    1.166	  0.114%	 46.092%	     0.000	        1	[model/dp_re_lu_12/sub;model/dp_re_lu_12/sub]:1438
+	                 GREATER	          472.278	    0.554	    0.538	  0.053%	 46.144%	     0.000	        1	[model/dp_re_lu_12/Greater;model/dp_re_lu_12/Greate]:311
+	               SELECT_V2	          472.818	    0.691	    0.629	  0.061%	 46.206%	     0.000	        1	[model/dp_re_lu_12/SelectV2;model/dp_re_lu_12/Selec]:312
+	   TfLiteXNNPackDelegate	          473.448	    4.359	    3.909	  0.382%	 46.588%	     0.000	        1	[model/batch_normalization_23/FusedBatchNormV3;mode1, model/tf.math.truediv_11/truediv;model/tf.math.tru, model/zero_padding2d_3/Pad;model/zero_padding2d_3/]:1439
+	             LceQuantize	          477.360	    0.423	    0.300	  0.029%	 46.617%	     0.000	        1	[model/PokeConv_3_3_conv/poke_sign/Sign_1;model/Pok]:333
+	              LceBconv2d	          477.661	    3.060	    2.997	  0.293%	 46.909%	     0.000	        1	[model/batch_normalization_24/FusedBatchNormV3;mode1]:334
+	   TfLiteXNNPackDelegate	          480.662	    8.384	    8.381	  0.818%	 47.728%	     0.000	        1	[model/dp_re_lu_13/sub;model/dp_re_lu_13/sub]:1440
+	                 GREATER	          489.047	    1.991	    2.025	  0.198%	 47.926%	     0.000	        1	[model/dp_re_lu_13/Greater;model/dp_re_lu_13/Greate]:356
+	               SELECT_V2	          491.074	    2.492	    2.495	  0.244%	 48.169%	     0.000	        1	[model/dp_re_lu_13/SelectV2;model/dp_re_lu_13/Selec]:357
+	   TfLiteXNNPackDelegate	          493.570	   13.780	   13.600	  1.328%	 49.497%	     0.000	        1	[model/batch_normalization_25/FusedBatchNormV3;mode1, model/tf.math.truediv_12/truediv;model/tf.math.tru]:1441
+	             LceQuantize	          507.173	    1.027	    1.067	  0.104%	 49.601%	     0.000	        1	[model/PokeConv_4_1_conv/poke_sign/Sign_1;model/Pok]:363
+	              LceBconv2d	          508.242	    1.792	    1.741	  0.170%	 49.771%	     0.000	        1	[model/batch_normalization_26/FusedBatchNormV3;mode1]:364
+	           STRIDED_SLICE	          509.985	    1.673	    1.706	  0.167%	 49.938%	     0.000	        1	[model/tf.__operators__.getitem_3/strided_slice;mod]:380
+	   TfLiteXNNPackDelegate	          511.693	    1.606	    1.568	  0.153%	 50.091%	     0.000	        1	[model/average_pooling1d_3/ExpandDims;model/average]:1442
+	               TRANSPOSE	          513.263	    5.634	    5.595	  0.546%	 50.637%	     0.000	        1	[model/average_pooling1d_3/transpose;model/average_]:382
+	   TfLiteXNNPackDelegate	          518.861	    2.658	    2.614	  0.255%	 50.893%	     0.000	        1	[model/average_pooling1d_3/AvgPool;model/average_po]:1443
+	               TRANSPOSE	          521.477	    0.938	    0.954	  0.093%	 50.986%	     0.000	        1	[model/average_pooling1d_3/transpose_1;model/averag]:384
+	   TfLiteXNNPackDelegate	          522.433	    1.476	    1.510	  0.147%	 51.133%	     0.000	        1	[model/dp_re_lu_14/sub;model/dp_re_lu_14/sub]:1444
+	                 GREATER	          523.946	    0.590	    0.533	  0.052%	 51.185%	     0.000	        1	[model/dp_re_lu_14/Greater;model/dp_re_lu_14/Greate]:388
+	               SELECT_V2	          524.480	    0.625	    0.645	  0.063%	 51.248%	     0.000	        1	[model/dp_re_lu_14/SelectV2;model/dp_re_lu_14/Selec]:389
+	   TfLiteXNNPackDelegate	          525.126	    3.106	    3.071	  0.300%	 51.548%	     0.000	        1	[model/batch_normalization_27/FusedBatchNormV3;mode1, model/tf.math.truediv_13/truediv;model/tf.math.tru]:1445
+	             LceQuantize	          528.201	    0.109	    0.108	  0.011%	 51.559%	     0.000	        1	[model/PokeConv_4_2_conv/poke_sign/Sign_1;model/Pok]:395
+	              LceBconv2d	          528.309	    3.644	    3.707	  0.362%	 51.921%	     0.000	        1	[model/batch_normalization_28/FusedBatchNormV3;mode1]:396
+	   TfLiteXNNPackDelegate	          532.018	    0.955	    0.916	  0.089%	 52.010%	     0.000	        1	[model/dp_re_lu_15/sub;model/dp_re_lu_15/sub]:1446
+	                 GREATER	          532.937	    0.519	    0.531	  0.052%	 52.062%	     0.000	        1	[model/dp_re_lu_15/Greater;model/dp_re_lu_15/Greate]:414
+	               SELECT_V2	          533.469	    0.654	    0.633	  0.062%	 52.124%	     0.000	        1	[model/dp_re_lu_15/SelectV2;model/dp_re_lu_15/Selec]:415
+	   TfLiteXNNPackDelegate	          534.103	    4.063	    4.034	  0.394%	 52.518%	     0.000	        1	[model/batch_normalization_29/FusedBatchNormV3;mode1, model/tf.math.truediv_14/truediv;model/tf.math.tru, model/zero_padding2d_4/Pad;model/zero_padding2d_4/]:1447
+	             LceQuantize	          538.143	    0.413	    0.395	  0.039%	 52.556%	     0.000	        1	[model/PokeConv_4_3_conv/poke_sign/Sign_1;model/Pok]:421
+	              LceBconv2d	          538.539	    3.122	    3.044	  0.297%	 52.854%	     0.000	        1	[model/batch_normalization_30/FusedBatchNormV3;mode1]:422
+	   TfLiteXNNPackDelegate	          541.586	    8.493	    8.500	  0.830%	 53.684%	     0.000	        1	[model/dp_re_lu_16/sub;model/dp_re_lu_16/sub]:1448
+	                 GREATER	          550.090	    2.060	    2.023	  0.198%	 53.881%	     0.000	        1	[model/dp_re_lu_16/Greater;model/dp_re_lu_16/Greate]:442
+	               SELECT_V2	          552.114	    2.475	    2.486	  0.243%	 54.124%	     0.000	        1	[model/dp_re_lu_16/SelectV2;model/dp_re_lu_16/Selec]:443
+	   TfLiteXNNPackDelegate	          554.602	   13.717	   13.715	  1.339%	 55.463%	     0.000	        1	[model/batch_normalization_31/FusedBatchNormV3;mode1, model/tf.math.truediv_15/truediv;model/tf.math.tru]:1449
+	             LceQuantize	          568.320	    1.046	    1.068	  0.104%	 55.567%	     0.000	        1	[model/PokeConv_5_1_conv/poke_sign/Sign_1;model/Pok]:449
+	              LceBconv2d	          569.389	    1.704	    1.724	  0.168%	 55.736%	     0.000	        1	[model/batch_normalization_32/FusedBatchNormV3;mode1]:450
+	           STRIDED_SLICE	          571.116	    1.742	    1.716	  0.168%	 55.903%	     0.000	        1	[model/tf.__operators__.getitem_4/strided_slice;mod]:466
+	   TfLiteXNNPackDelegate	          572.833	    1.540	    1.558	  0.152%	 56.055%	     0.000	        1	[model/average_pooling1d_4/ExpandDims;model/average]:1450
+	               TRANSPOSE	          574.393	    5.568	    5.604	  0.547%	 56.602%	     0.000	        1	[model/average_pooling1d_4/transpose;model/average_]:468
+	   TfLiteXNNPackDelegate	          580.000	    2.618	    2.608	  0.255%	 56.857%	     0.000	        1	[model/average_pooling1d_4/AvgPool;model/average_po]:1451
+	               TRANSPOSE	          582.611	    0.926	    0.959	  0.094%	 56.951%	     0.000	        1	[model/average_pooling1d_4/transpose_1;model/averag]:470
+	   TfLiteXNNPackDelegate	          583.571	    1.570	    1.512	  0.148%	 57.098%	     0.000	        1	[model/dp_re_lu_17/sub;model/dp_re_lu_17/sub]:1452
+	                 GREATER	          585.086	    0.523	    0.540	  0.053%	 57.151%	     0.000	        1	[model/dp_re_lu_17/Greater;model/dp_re_lu_17/Greate]:474
+	               SELECT_V2	          585.626	    0.622	    0.637	  0.062%	 57.213%	     0.000	        1	[model/dp_re_lu_17/SelectV2;model/dp_re_lu_17/Selec]:475
+	   TfLiteXNNPackDelegate	          586.264	    3.542	    3.056	  0.298%	 57.512%	     0.000	        1	[model/batch_normalization_33/FusedBatchNormV3;mode1, model/tf.math.truediv_16/truediv;model/tf.math.tru]:1453
+	             LceQuantize	          589.323	    0.107	    0.103	  0.010%	 57.522%	     0.000	        1	[model/PokeConv_5_2_conv/poke_sign/Sign_1;model/Pok]:481
+	              LceBconv2d	          589.427	    3.666	    3.691	  0.360%	 57.882%	     0.000	        1	[model/batch_normalization_34/FusedBatchNormV3;mode1]:482
+	   TfLiteXNNPackDelegate	          593.120	    0.890	    0.893	  0.087%	 57.969%	     0.000	        1	[model/dp_re_lu_18/sub;model/dp_re_lu_18/sub]:1454
+	                 GREATER	          594.015	    0.518	    0.530	  0.052%	 58.021%	     0.000	        1	[model/dp_re_lu_18/Greater;model/dp_re_lu_18/Greate]:500
+	               SELECT_V2	          594.546	    0.620	    0.628	  0.061%	 58.082%	     0.000	        1	[model/dp_re_lu_18/SelectV2;model/dp_re_lu_18/Selec]:501
+	   TfLiteXNNPackDelegate	          595.175	    3.529	    3.830	  0.374%	 58.456%	     0.000	        1	[model/batch_normalization_35/FusedBatchNormV3;mode1, model/tf.math.truediv_17/truediv;model/tf.math.tru, model/zero_padding2d_5/Pad;model/zero_padding2d_5/]:1455
+	             LceQuantize	          599.008	    0.090	    0.313	  0.031%	 58.487%	     0.000	        1	[model/PokeConv_5_3_conv/poke_sign/Sign_1;model/Pok]:507
+	              LceBconv2d	          599.322	    2.924	    2.958	  0.289%	 58.776%	     0.000	        1	[model/batch_normalization_36/FusedBatchNormV3;mode1]:508
+	   TfLiteXNNPackDelegate	          602.284	    8.578	    8.581	  0.838%	 59.614%	     0.000	        1	[model/dp_re_lu_19/sub;model/dp_re_lu_19/sub]:1456
+	                 GREATER	          610.868	    2.052	    2.037	  0.199%	 59.813%	     0.000	        1	[model/dp_re_lu_19/Greater;model/dp_re_lu_19/Greate]:528
+	               SELECT_V2	          612.907	    2.445	    2.475	  0.242%	 60.054%	     0.000	        1	[model/dp_re_lu_19/SelectV2;model/dp_re_lu_19/Selec]:529
+	   TfLiteXNNPackDelegate	          615.383	   14.182	   13.946	  1.362%	 61.416%	     0.000	        1	[model/batch_normalization_37/FusedBatchNormV3;mode1, model/tf.math.truediv_18/truediv;model/tf.math.tru]:1457
+	             LceQuantize	          629.332	    1.040	    1.055	  0.103%	 61.519%	     0.000	        1	[model/PokeConv_6_1_conv/poke_sign/Sign_1;model/Pok]:535
+	              LceBconv2d	          630.389	    1.770	    1.729	  0.169%	 61.688%	     0.000	        1	[model/batch_normalization_38/FusedBatchNormV3;mode1]:536
+	           STRIDED_SLICE	          632.120	    1.680	    1.705	  0.166%	 61.854%	     0.000	        1	[model/tf.__operators__.getitem_5/strided_slice;mod]:552
+	   TfLiteXNNPackDelegate	          633.827	    1.526	    1.555	  0.152%	 62.006%	     0.000	        1	[model/average_pooling1d_5/ExpandDims;model/average]:1458
+	               TRANSPOSE	          635.384	    5.638	    5.612	  0.548%	 62.554%	     0.000	        1	[model/average_pooling1d_5/transpose;model/average_]:554
+	   TfLiteXNNPackDelegate	          641.000	    2.565	    2.585	  0.252%	 62.807%	     0.000	        1	[model/average_pooling1d_5/AvgPool;model/average_po]:1459
+	               TRANSPOSE	          643.587	    0.982	    0.960	  0.094%	 62.900%	     0.000	        1	[model/average_pooling1d_5/transpose_1;model/averag]:556
+	   TfLiteXNNPackDelegate	          644.549	    1.487	    1.507	  0.147%	 63.048%	     0.000	        1	[model/dp_re_lu_20/sub;model/dp_re_lu_20/sub]:1460
+	                 GREATER	          646.058	    0.522	    0.530	  0.052%	 63.099%	     0.000	        1	[model/dp_re_lu_20/Greater;model/dp_re_lu_20/Greate]:560
+	               SELECT_V2	          646.589	    0.658	    0.638	  0.062%	 63.162%	     0.000	        1	[model/dp_re_lu_20/SelectV2;model/dp_re_lu_20/Selec]:561
+	   TfLiteXNNPackDelegate	          647.228	    3.047	    3.059	  0.299%	 63.460%	     0.000	        1	[model/batch_normalization_39/FusedBatchNormV3;mode1, model/tf.math.truediv_19/truediv;model/tf.math.tru]:1461
+	             LceQuantize	          650.290	    0.104	    0.106	  0.010%	 63.471%	     0.000	        1	[model/PokeConv_6_2_conv/poke_sign/Sign_1;model/Pok]:567
+	              LceBconv2d	          650.397	    3.678	    3.693	  0.361%	 63.831%	     0.000	        1	[model/batch_normalization_40/FusedBatchNormV3;mode2]:568
+	   TfLiteXNNPackDelegate	          654.092	    0.920	    0.906	  0.088%	 63.920%	     0.000	        1	[model/dp_re_lu_21/sub;model/dp_re_lu_21/sub]:1462
+	                 GREATER	          655.000	    0.516	    0.528	  0.052%	 63.971%	     0.000	        1	[model/dp_re_lu_21/Greater;model/dp_re_lu_21/Greate]:586
+	               SELECT_V2	          655.529	    0.680	    0.637	  0.062%	 64.034%	     0.000	        1	[model/dp_re_lu_21/SelectV2;model/dp_re_lu_21/Selec]:587
+	   TfLiteXNNPackDelegate	          656.167	    3.881	    3.788	  0.370%	 64.403%	     0.000	        1	[model/batch_normalization_41/FusedBatchNormV3;mode2, model/tf.math.truediv_20/truediv;model/tf.math.tru, model/zero_padding2d_6/Pad;model/zero_padding2d_6/]:1463
+	             LceQuantize	          659.958	    0.418	    0.312	  0.030%	 64.434%	     0.000	        1	[model/PokeConv_6_3_conv/poke_sign/Sign_1;model/Pok]:593
+	              LceBconv2d	          660.270	    2.939	    2.951	  0.288%	 64.722%	     0.000	        1	[model/batch_normalization_42/FusedBatchNormV3;mode1]:594
+	   TfLiteXNNPackDelegate	          663.224	    8.711	    8.573	  0.837%	 65.559%	     0.000	        1	[model/dp_re_lu_22/sub;model/dp_re_lu_22/sub]:1464
+	                 GREATER	          671.801	    1.993	    2.028	  0.198%	 65.757%	     0.000	        1	[model/dp_re_lu_22/Greater;model/dp_re_lu_22/Greate]:614
+	               SELECT_V2	          673.831	    2.528	    2.487	  0.243%	 66.000%	     0.000	        1	[model/dp_re_lu_22/SelectV2;model/dp_re_lu_22/Selec]:615
+	   TfLiteXNNPackDelegate	          676.320	   13.898	   13.971	  1.364%	 67.364%	     0.000	        1	[model/batch_normalization_43/FusedBatchNormV3;mode1, model/tf.math.truediv_21/truediv;model/tf.math.tru]:1465
+	             LceQuantize	          690.294	    1.051	    1.070	  0.104%	 67.469%	     0.000	        1	[model/PokeConv_7_1_conv/poke_sign/Sign_1;model/Pok]:621
+	              LceBconv2d	          691.365	    3.498	    3.416	  0.334%	 67.802%	     0.000	        1	[model/batch_normalization_44/FusedBatchNormV3;mode1]:622
+	           STRIDED_SLICE	          694.784	    2.012	    1.988	  0.194%	 67.996%	     0.000	        1	[model/tf.__operators__.getitem_6/strided_slice;mod]:638
+	                    TILE	          696.774	    3.681	    3.676	  0.359%	 68.355%	     0.000	        1	[model/tf.tile_2/Tile;model/tf.tile_2/Tile]:699
+	   TfLiteXNNPackDelegate	          700.452	   17.299	   17.339	  1.693%	 70.048%	     0.000	        1	[model/average_pooling1d_6/ExpandDims;model/average1, model/average_pooling2d_3/AvgPool;model/average_po]:1466
+	               TRANSPOSE	          717.794	    5.742	    5.780	  0.564%	 70.613%	     0.000	        1	[model/average_pooling1d_6/transpose;model/average_]:640
+	   TfLiteXNNPackDelegate	          723.577	    3.171	    3.175	  0.310%	 70.923%	     0.000	        1	[model/average_pooling1d_6/AvgPool;model/average_po]:1467
+	               TRANSPOSE	          726.756	    2.739	    2.746	  0.268%	 71.191%	     0.000	        1	[model/average_pooling1d_6/transpose_1;model/averag]:642
+	   TfLiteXNNPackDelegate	          729.505	    3.257	    3.261	  0.318%	 71.509%	     0.000	        1	[model/dp_re_lu_23/sub;model/dp_re_lu_23/sub]:1468
+	                 GREATER	          732.769	    1.021	    1.036	  0.101%	 71.611%	     0.000	        1	[model/dp_re_lu_23/Greater;model/dp_re_lu_23/Greate]:646
+	               SELECT_V2	          733.806	    1.218	    1.236	  0.121%	 71.731%	     0.000	        1	[model/dp_re_lu_23/SelectV2;model/dp_re_lu_23/Selec]:647
+	   TfLiteXNNPackDelegate	          735.044	    7.236	    7.192	  0.702%	 72.434%	     0.000	        1	[model/batch_normalization_45/FusedBatchNormV3;mode1, model/average_pooling2d_2/AvgPool;model/average_po, model/tf.math.truediv_22/truediv;model/tf.math.tru]:1469
+	             LceQuantize	          742.239	    0.220	    0.220	  0.022%	 72.455%	     0.000	        1	[model/PokeConv_7_2_conv/poke_sign/Sign_1;model/Pok]:653
+	              LceBconv2d	          742.460	    3.473	    3.467	  0.339%	 72.794%	     0.000	        1	[model/batch_normalization_46/FusedBatchNormV3;mode1]:654
+	   TfLiteXNNPackDelegate	          745.930	    0.534	    0.524	  0.051%	 72.845%	     0.000	        1	[model/dp_re_lu_24/sub;model/dp_re_lu_24/sub]:1470
+	                 GREATER	          746.455	    0.277	    0.286	  0.028%	 72.873%	     0.000	        1	[model/dp_re_lu_24/Greater;model/dp_re_lu_24/Greate]:658
+	               SELECT_V2	          746.742	    0.310	    0.313	  0.031%	 72.903%	     0.000	        1	[model/dp_re_lu_24/SelectV2;model/dp_re_lu_24/Selec]:659
+	   TfLiteXNNPackDelegate	          747.056	    1.955	    1.940	  0.189%	 73.093%	     0.000	        1	[model/batch_normalization_47/FusedBatchNormV3;mode1, model/tf.math.truediv_23/truediv;model/tf.math.tru, model/zero_padding2d_7/Pad;model/zero_padding2d_7/]:1471
+	             LceQuantize	          749.001	    0.080	    0.071	  0.007%	 73.100%	     0.000	        1	[model/PokeConv_7_3_conv/poke_sign/Sign_1;model/Pok]:680
+	              LceBconv2d	          749.072	    2.028	    2.051	  0.200%	 73.300%	     0.000	        1	[model/batch_normalization_48/FusedBatchNormV3;mode1]:681
+	   TfLiteXNNPackDelegate	          751.125	    4.234	    4.167	  0.407%	 73.707%	     0.000	        1	[model/dp_re_lu_25/sub;model/dp_re_lu_25/sub]:1472
+	                 GREATER	          755.296	    1.062	    1.022	  0.100%	 73.807%	     0.000	        1	[model/dp_re_lu_25/Greater;model/dp_re_lu_25/Greate]:703
+	               SELECT_V2	          756.319	    1.209	    1.234	  0.121%	 73.927%	     0.000	        1	[model/dp_re_lu_25/SelectV2;model/dp_re_lu_25/Selec]:704
+	   TfLiteXNNPackDelegate	          757.554	    7.794	    7.783	  0.760%	 74.687%	     0.000	        1	[model/batch_normalization_49/FusedBatchNormV3;mode1, model/tf.math.truediv_24/truediv;model/tf.math.tru]:1473
+	             LceQuantize	          765.340	    0.380	    0.376	  0.037%	 74.724%	     0.000	        1	[model/PokeConv_8_1_conv/poke_sign/Sign_1;model/Pok]:710
+	              LceBconv2d	          765.717	    1.565	    1.584	  0.155%	 74.878%	     0.000	        1	[model/batch_normalization_50/FusedBatchNormV3;mode1]:711
+	           STRIDED_SLICE	          767.302	    0.529	    0.479	  0.047%	 74.925%	     0.000	        1	[model/tf.__operators__.getitem_7/strided_slice;mod]:727
+	   TfLiteXNNPackDelegate	          767.783	    0.838	    0.864	  0.084%	 75.010%	     0.000	        1	[model/average_pooling1d_7/ExpandDims;model/average]:1474
+	               TRANSPOSE	          768.649	    2.658	    2.711	  0.265%	 75.274%	     0.000	        1	[model/average_pooling1d_7/transpose;model/average_]:729
+	   TfLiteXNNPackDelegate	          771.362	    1.238	    1.079	  0.105%	 75.380%	     0.000	        1	[model/average_pooling1d_7/AvgPool;model/average_po]:1475
+	               TRANSPOSE	          772.445	    0.396	    0.375	  0.037%	 75.416%	     0.000	        1	[model/average_pooling1d_7/transpose_1;model/averag]:731
+	   TfLiteXNNPackDelegate	          772.821	    0.799	    0.828	  0.081%	 75.497%	     0.000	        1	[model/dp_re_lu_26/sub;model/dp_re_lu_26/sub]:1476
+	                 GREATER	          773.651	    0.253	    0.257	  0.025%	 75.522%	     0.000	        1	[model/dp_re_lu_26/Greater;model/dp_re_lu_26/Greate]:735
+	               SELECT_V2	          773.908	    0.314	    0.319	  0.031%	 75.553%	     0.000	        1	[model/dp_re_lu_26/SelectV2;model/dp_re_lu_26/Selec]:736
+	   TfLiteXNNPackDelegate	          774.228	    1.671	    1.599	  0.156%	 75.710%	     0.000	        1	[model/batch_normalization_51/FusedBatchNormV3;mode1, model/tf.math.truediv_25/truediv;model/tf.math.tru]:1477
+	             LceQuantize	          775.829	    0.065	    0.054	  0.005%	 75.715%	     0.000	        1	[model/PokeConv_8_2_conv/poke_sign/Sign_1;model/Pok]:742
+	              LceBconv2d	          775.884	    3.410	    3.449	  0.337%	 76.052%	     0.000	        1	[model/batch_normalization_52/FusedBatchNormV3;mode1]:743
+	   TfLiteXNNPackDelegate	          779.335	    0.498	    0.386	  0.038%	 76.089%	     0.000	        1	[model/dp_re_lu_27/sub;model/dp_re_lu_27/sub]:1478
+	                 GREATER	          779.722	    0.270	    0.266	  0.026%	 76.115%	     0.000	        1	[model/dp_re_lu_27/Greater;model/dp_re_lu_27/Greate]:761
+	               SELECT_V2	          779.989	    0.312	    0.318	  0.031%	 76.146%	     0.000	        1	[model/dp_re_lu_27/SelectV2;model/dp_re_lu_27/Selec]:762
+	   TfLiteXNNPackDelegate	          780.308	    1.905	    1.993	  0.195%	 76.341%	     0.000	        1	[model/batch_normalization_53/FusedBatchNormV3;mode1, model/tf.math.truediv_26/truediv;model/tf.math.tru, model/zero_padding2d_8/Pad;model/zero_padding2d_8/]:1479
+	             LceQuantize	          782.303	    0.083	    0.079	  0.008%	 76.349%	     0.000	        1	[model/PokeConv_8_3_conv/poke_sign/Sign_1;model/Pok]:768
+	              LceBconv2d	          782.383	    2.147	    2.106	  0.206%	 76.554%	     0.000	        1	[model/batch_normalization_54/FusedBatchNormV3;mode1]:769
+	   TfLiteXNNPackDelegate	          784.491	    4.179	    4.169	  0.407%	 76.961%	     0.000	        1	[model/dp_re_lu_28/sub;model/dp_re_lu_28/sub]:1480
+	                 GREATER	          788.663	    0.998	    1.014	  0.099%	 77.060%	     0.000	        1	[model/dp_re_lu_28/Greater;model/dp_re_lu_28/Greate]:789
+	               SELECT_V2	          789.678	    1.207	    1.231	  0.120%	 77.181%	     0.000	        1	[model/dp_re_lu_28/SelectV2;model/dp_re_lu_28/Selec]:790
+	   TfLiteXNNPackDelegate	          790.910	    7.875	    7.785	  0.760%	 77.941%	     0.000	        1	[model/batch_normalization_55/FusedBatchNormV3;mode1, model/tf.math.truediv_27/truediv;model/tf.math.tru]:1481
+	             LceQuantize	          798.698	    0.378	    0.384	  0.037%	 77.978%	     0.000	        1	[model/PokeConv_9_1_conv/poke_sign/Sign_1;model/Pok]:796
+	              LceBconv2d	          799.083	    1.620	    1.588	  0.155%	 78.133%	     0.000	        1	[model/batch_normalization_56/FusedBatchNormV3;mode1]:797
+	           STRIDED_SLICE	          800.672	    0.506	    0.478	  0.047%	 78.180%	     0.000	        1	[model/tf.__operators__.getitem_8/strided_slice;mod]:813
+	   TfLiteXNNPackDelegate	          801.151	    1.045	    0.863	  0.084%	 78.264%	     0.000	        1	[model/average_pooling1d_8/ExpandDims;model/average]:1482
+	               TRANSPOSE	          802.015	    2.744	    2.729	  0.266%	 78.531%	     0.000	        1	[model/average_pooling1d_8/transpose;model/average_]:815
+	   TfLiteXNNPackDelegate	          804.747	    1.094	    1.069	  0.104%	 78.635%	     0.000	        1	[model/average_pooling1d_8/AvgPool;model/average_po]:1483
+	               TRANSPOSE	          805.817	    0.346	    0.378	  0.037%	 78.672%	     0.000	        1	[model/average_pooling1d_8/transpose_1;model/averag]:817
+	   TfLiteXNNPackDelegate	          806.196	    0.817	    0.829	  0.081%	 78.753%	     0.000	        1	[model/dp_re_lu_29/sub;model/dp_re_lu_29/sub]:1484
+	                 GREATER	          807.026	    0.317	    0.260	  0.025%	 78.778%	     0.000	        1	[model/dp_re_lu_29/Greater;model/dp_re_lu_29/Greate]:821
+	               SELECT_V2	          807.287	    0.316	    0.317	  0.031%	 78.809%	     0.000	        1	[model/dp_re_lu_29/SelectV2;model/dp_re_lu_29/Selec]:822
+	   TfLiteXNNPackDelegate	          807.605	    1.568	    1.616	  0.158%	 78.967%	     0.000	        1	[model/batch_normalization_57/FusedBatchNormV3;mode1, model/tf.math.truediv_28/truediv;model/tf.math.tru]:1485
+	             LceQuantize	          809.222	    0.052	    0.056	  0.005%	 78.972%	     0.000	        1	[model/PokeConv_9_2_conv/poke_sign/Sign_1;model/Pok]:828
+	              LceBconv2d	          809.279	    3.452	    3.461	  0.338%	 79.310%	     0.000	        1	[model/batch_normalization_58/FusedBatchNormV3;mode1]:829
+	   TfLiteXNNPackDelegate	          812.742	    0.382	    0.392	  0.038%	 79.349%	     0.000	        1	[model/dp_re_lu_30/sub;model/dp_re_lu_30/sub]:1486
+	                 GREATER	          813.136	    0.258	    0.271	  0.026%	 79.375%	     0.000	        1	[model/dp_re_lu_30/Greater;model/dp_re_lu_30/Greate]:847
+	               SELECT_V2	          813.408	    0.310	    0.311	  0.030%	 79.405%	     0.000	        1	[model/dp_re_lu_30/SelectV2;model/dp_re_lu_30/Selec]:848
+	   TfLiteXNNPackDelegate	          813.719	    2.005	    2.028	  0.198%	 79.603%	     0.000	        1	[model/batch_normalization_59/FusedBatchNormV3;mode1, model/tf.math.truediv_29/truediv;model/tf.math.tru, model/zero_padding2d_9/Pad;model/zero_padding2d_9/]:1487
+	             LceQuantize	          815.750	    0.049	    0.081	  0.008%	 79.611%	     0.000	        1	[model/PokeConv_9_3_conv/poke_sign/Sign_1;model/Pok]:854
+	              LceBconv2d	          815.831	    1.986	    2.071	  0.202%	 79.814%	     0.000	        1	[model/batch_normalization_60/FusedBatchNormV3;mode1]:855
+	   TfLiteXNNPackDelegate	          817.904	    4.082	    4.189	  0.409%	 80.223%	     0.000	        1	[model/dp_re_lu_31/sub;model/dp_re_lu_31/sub]:1488
+	                 GREATER	          822.097	    1.000	    1.013	  0.099%	 80.322%	     0.000	        1	[model/dp_re_lu_31/Greater;model/dp_re_lu_31/Greate]:875
+	               SELECT_V2	          823.112	    1.276	    1.242	  0.121%	 80.443%	     0.000	        1	[model/dp_re_lu_31/SelectV2;model/dp_re_lu_31/Selec]:876
+	   TfLiteXNNPackDelegate	          824.355	    7.780	    7.775	  0.759%	 81.202%	     0.000	        1	[model/batch_normalization_61/FusedBatchNormV3;mode1, model/tf.math.truediv_30/truediv;model/tf.math.tru]:1489
+	             LceQuantize	          832.133	    0.375	    0.386	  0.038%	 81.240%	     0.000	        1	[model/PokeConv_10_1_conv/poke_sign/Sign_1;model/Po]:882
+	              LceBconv2d	          832.520	    1.566	    1.586	  0.155%	 81.395%	     0.000	        1	[model/batch_normalization_62/FusedBatchNormV3;mode1]:883
+	           STRIDED_SLICE	          834.107	    0.453	    0.476	  0.046%	 81.441%	     0.000	        1	[model/tf.__operators__.getitem_9/strided_slice;mod]:899
+	   TfLiteXNNPackDelegate	          834.584	    0.925	    0.862	  0.084%	 81.525%	     0.000	        1	[model/average_pooling1d_9/ExpandDims;model/average]:1490
+	               TRANSPOSE	          835.447	    2.682	    2.724	  0.266%	 81.791%	     0.000	        1	[model/average_pooling1d_9/transpose;model/average_]:901
+	   TfLiteXNNPackDelegate	          838.174	    1.047	    1.059	  0.103%	 81.895%	     0.000	        1	[model/average_pooling1d_9/AvgPool;model/average_po]:1491
+	               TRANSPOSE	          839.235	    0.441	    0.400	  0.039%	 81.934%	     0.000	        1	[model/average_pooling1d_9/transpose_1;model/averag]:903
+	   TfLiteXNNPackDelegate	          839.635	    0.827	    0.832	  0.081%	 82.015%	     0.000	        1	[model/dp_re_lu_32/sub;model/dp_re_lu_32/sub]:1492
+	                 GREATER	          840.469	    0.255	    0.258	  0.025%	 82.040%	     0.000	        1	[model/dp_re_lu_32/Greater;model/dp_re_lu_32/Greate]:907
+	               SELECT_V2	          840.727	    0.322	    0.315	  0.031%	 82.071%	     0.000	        1	[model/dp_re_lu_32/SelectV2;model/dp_re_lu_32/Selec]:908
+	   TfLiteXNNPackDelegate	          841.043	    1.570	    1.612	  0.157%	 82.228%	     0.000	        1	[model/batch_normalization_63/FusedBatchNormV3;mode1, model/tf.math.truediv_31/truediv;model/tf.math.tru]:1493
+	             LceQuantize	          842.657	    0.053	    0.054	  0.005%	 82.234%	     0.000	        1	[model/PokeConv_10_2_conv/poke_sign/Sign_1;model/Po]:914
+	              LceBconv2d	          842.712	    3.466	    3.455	  0.337%	 82.571%	     0.000	        1	[model/batch_normalization_64/FusedBatchNormV3;mode1]:915
+	   TfLiteXNNPackDelegate	          846.169	    0.383	    0.388	  0.038%	 82.609%	     0.000	        1	[model/dp_re_lu_33/sub;model/dp_re_lu_33/sub]:1494
+	                 GREATER	          846.558	    0.264	    0.264	  0.026%	 82.635%	     0.000	        1	[model/dp_re_lu_33/Greater;model/dp_re_lu_33/Greate]:933
+	               SELECT_V2	          846.823	    0.310	    0.319	  0.031%	 82.666%	     0.000	        1	[model/dp_re_lu_33/SelectV2;model/dp_re_lu_33/Selec]:934
+	   TfLiteXNNPackDelegate	          847.142	    1.980	    1.977	  0.193%	 82.859%	     0.000	        1	[model/batch_normalization_65/FusedBatchNormV3;mode1, model/tf.math.truediv_32/truediv;model/tf.math.tru, model/zero_padding2d_10/Pad;model/zero_padding2d_1]:1495
+	             LceQuantize	          849.121	    0.085	    0.092	  0.009%	 82.868%	     0.000	        1	[model/PokeConv_10_3_conv/poke_sign/Sign_1;model/Po]:940
+	              LceBconv2d	          849.214	    2.035	    2.065	  0.202%	 83.069%	     0.000	        1	[model/batch_normalization_66/FusedBatchNormV3;mode1]:941
+	   TfLiteXNNPackDelegate	          851.281	    4.280	    4.204	  0.411%	 83.480%	     0.000	        1	[model/dp_re_lu_34/sub;model/dp_re_lu_34/sub]:1496
+	                 GREATER	          855.488	    0.997	    1.016	  0.099%	 83.579%	     0.000	        1	[model/dp_re_lu_34/Greater;model/dp_re_lu_34/Greate]:961
+	               SELECT_V2	          856.505	    1.207	    1.233	  0.120%	 83.699%	     0.000	        1	[model/dp_re_lu_34/SelectV2;model/dp_re_lu_34/Selec]:962
+	   TfLiteXNNPackDelegate	          857.739	    7.818	    7.789	  0.761%	 84.460%	     0.000	        1	[model/batch_normalization_67/FusedBatchNormV3;mode1, model/tf.math.truediv_33/truediv;model/tf.math.tru]:1497
+	             LceQuantize	          865.531	    0.376	    0.387	  0.038%	 84.498%	     0.000	        1	[model/PokeConv_11_1_conv/poke_sign/Sign_1;model/Po]:968
+	              LceBconv2d	          865.919	    1.621	    1.595	  0.156%	 84.653%	     0.000	        1	[model/batch_normalization_68/FusedBatchNormV3;mode1]:969
+	           STRIDED_SLICE	          867.515	    0.496	    0.496	  0.048%	 84.702%	     0.000	        1	[model/tf.__operators__.getitem_10/strided_slice;mo]:985
+	   TfLiteXNNPackDelegate	          868.013	    0.842	    0.855	  0.083%	 84.785%	     0.000	        1	[model/average_pooling1d_10/ExpandDims;model/averag]:1498
+	               TRANSPOSE	          868.869	    2.742	    2.724	  0.266%	 85.051%	     0.000	        1	[model/average_pooling1d_10/transpose;model/average]:987
+	   TfLiteXNNPackDelegate	          871.595	    1.080	    1.069	  0.104%	 85.156%	     0.000	        1	[model/average_pooling1d_10/AvgPool;model/average_p]:1499
+	               TRANSPOSE	          872.666	    0.372	    0.377	  0.037%	 85.192%	     0.000	        1	[model/average_pooling1d_10/transpose_1;model/avera]:989
+	   TfLiteXNNPackDelegate	          873.043	    0.824	    0.838	  0.082%	 85.274%	     0.000	        1	[model/dp_re_lu_35/sub;model/dp_re_lu_35/sub]:1500
+	                 GREATER	          873.882	    0.267	    0.257	  0.025%	 85.299%	     0.000	        1	[model/dp_re_lu_35/Greater;model/dp_re_lu_35/Greate]:993
+	               SELECT_V2	          874.139	    0.320	    0.322	  0.031%	 85.331%	     0.000	        1	[model/dp_re_lu_35/SelectV2;model/dp_re_lu_35/Selec]:994
+	   TfLiteXNNPackDelegate	          874.462	    1.666	    1.608	  0.157%	 85.488%	     0.000	        1	[model/batch_normalization_69/FusedBatchNormV3;mode1, model/tf.math.truediv_34/truediv;model/tf.math.tru]:1501
+	             LceQuantize	          876.072	    0.054	    0.054	  0.005%	 85.493%	     0.000	        1	[model/PokeConv_11_2_conv/poke_sign/Sign_1;model/Po]:1000
+	              LceBconv2d	          876.126	    3.443	    3.453	  0.337%	 85.830%	     0.000	        1	[model/batch_normalization_70/FusedBatchNormV3;mode1]:1001
+	   TfLiteXNNPackDelegate	          879.581	    0.384	    0.382	  0.037%	 85.868%	     0.000	        1	[model/dp_re_lu_36/sub;model/dp_re_lu_36/sub]:1502
+	                 GREATER	          879.965	    0.270	    0.267	  0.026%	 85.894%	     0.000	        1	[model/dp_re_lu_36/Greater;model/dp_re_lu_36/Greate]:1019
+	               SELECT_V2	          880.232	    0.312	    0.314	  0.031%	 85.924%	     0.000	        1	[model/dp_re_lu_36/SelectV2;model/dp_re_lu_36/Selec]:1020
+	   TfLiteXNNPackDelegate	          880.547	    1.986	    1.993	  0.195%	 86.119%	     0.000	        1	[model/batch_normalization_71/FusedBatchNormV3;mode1, model/tf.math.truediv_35/truediv;model/tf.math.tru, model/zero_padding2d_11/Pad;model/zero_padding2d_1]:1503
+	             LceQuantize	          882.542	    0.085	    0.082	  0.008%	 86.127%	     0.000	        1	[model/PokeConv_11_3_conv/poke_sign/Sign_1;model/Po]:1026
+	              LceBconv2d	          882.625	    2.111	    2.078	  0.203%	 86.330%	     0.000	        1	[model/batch_normalization_72/FusedBatchNormV3;mode1]:1027
+	   TfLiteXNNPackDelegate	          884.706	    4.203	    4.183	  0.408%	 86.738%	     0.000	        1	[model/dp_re_lu_37/sub;model/dp_re_lu_37/sub]:1504
+	                 GREATER	          888.893	    1.000	    1.015	  0.099%	 86.837%	     0.000	        1	[model/dp_re_lu_37/Greater;model/dp_re_lu_37/Greate]:1047
+	               SELECT_V2	          889.909	    1.226	    1.232	  0.120%	 86.958%	     0.000	        1	[model/dp_re_lu_37/SelectV2;model/dp_re_lu_37/Selec]:1048
+	   TfLiteXNNPackDelegate	          891.142	    7.763	    7.787	  0.760%	 87.718%	     0.000	        1	[model/batch_normalization_73/FusedBatchNormV3;mode1, model/tf.math.truediv_36/truediv;model/tf.math.tru]:1505
+	             LceQuantize	          898.931	    0.502	    0.387	  0.038%	 87.756%	     0.000	        1	[model/PokeConv_12_1_conv/poke_sign/Sign_1;model/Po]:1054
+	              LceBconv2d	          899.319	    1.562	    1.588	  0.155%	 87.911%	     0.000	        1	[model/batch_normalization_74/FusedBatchNormV3;mode1]:1055
+	           STRIDED_SLICE	          900.909	    0.487	    0.487	  0.048%	 87.958%	     0.000	        1	[model/tf.__operators__.getitem_11/strided_slice;mo]:1071
+	   TfLiteXNNPackDelegate	          901.397	    0.853	    0.846	  0.083%	 88.041%	     0.000	        1	[model/average_pooling1d_11/ExpandDims;model/averag]:1506
+	               TRANSPOSE	          902.244	    2.750	    2.734	  0.267%	 88.308%	     0.000	        1	[model/average_pooling1d_11/transpose;model/average]:1073
+	   TfLiteXNNPackDelegate	          904.980	    1.060	    1.056	  0.103%	 88.411%	     0.000	        1	[model/average_pooling1d_11/AvgPool;model/average_p]:1507
+	               TRANSPOSE	          906.038	    0.372	    0.399	  0.039%	 88.450%	     0.000	        1	[model/average_pooling1d_11/transpose_1;model/avera]:1075
+	   TfLiteXNNPackDelegate	          906.438	    0.896	    0.834	  0.081%	 88.532%	     0.000	        1	[model/dp_re_lu_38/sub;model/dp_re_lu_38/sub]:1508
+	                 GREATER	          907.274	    0.255	    0.262	  0.026%	 88.557%	     0.000	        1	[model/dp_re_lu_38/Greater;model/dp_re_lu_38/Greate]:1079
+	               SELECT_V2	          907.536	    0.313	    0.321	  0.031%	 88.588%	     0.000	        1	[model/dp_re_lu_38/SelectV2;model/dp_re_lu_38/Selec]:1080
+	   TfLiteXNNPackDelegate	          907.859	    1.592	    1.619	  0.158%	 88.746%	     0.000	        1	[model/batch_normalization_75/FusedBatchNormV3;mode1, model/tf.math.truediv_37/truediv;model/tf.math.tru]:1509
+	             LceQuantize	          909.479	    0.054	    0.053	  0.005%	 88.752%	     0.000	        1	[model/PokeConv_12_2_conv/poke_sign/Sign_1;model/Po]:1086
+	              LceBconv2d	          909.533	    3.441	    3.445	  0.336%	 89.088%	     0.000	        1	[model/batch_normalization_76/FusedBatchNormV3;mode2]:1087
+	   TfLiteXNNPackDelegate	          912.980	    0.391	    0.389	  0.038%	 89.126%	     0.000	        1	[model/dp_re_lu_39/sub;model/dp_re_lu_39/sub]:1510
+	                 GREATER	          913.370	    0.268	    0.265	  0.026%	 89.152%	     0.000	        1	[model/dp_re_lu_39/Greater;model/dp_re_lu_39/Greate]:1105
+	               SELECT_V2	          913.636	    0.310	    0.316	  0.031%	 89.183%	     0.000	        1	[model/dp_re_lu_39/SelectV2;model/dp_re_lu_39/Selec]:1106
+	   TfLiteXNNPackDelegate	          913.953	    2.096	    2.004	  0.196%	 89.378%	     0.000	        1	[model/batch_normalization_77/FusedBatchNormV3;mode2, model/tf.math.truediv_38/truediv;model/tf.math.tru, model/zero_padding2d_12/Pad;model/zero_padding2d_1]:1511
+	             LceQuantize	          915.960	    0.086	    0.078	  0.008%	 89.386%	     0.000	        1	[model/PokeConv_12_3_conv/poke_sign/Sign_1;model/Po]:1112
+	              LceBconv2d	          916.038	    2.027	    2.064	  0.202%	 89.588%	     0.000	        1	[model/batch_normalization_78/FusedBatchNormV3;mode2]:1113
+	   TfLiteXNNPackDelegate	          918.105	    4.214	    4.164	  0.407%	 89.994%	     0.000	        1	[model/dp_re_lu_40/sub;model/dp_re_lu_40/sub]:1512
+	                 GREATER	          922.271	    1.133	    1.027	  0.100%	 90.094%	     0.000	        1	[model/dp_re_lu_40/Greater;model/dp_re_lu_40/Greate]:1133
+	               SELECT_V2	          923.299	    1.208	    1.231	  0.120%	 90.215%	     0.000	        1	[model/dp_re_lu_40/SelectV2;model/dp_re_lu_40/Selec]:1134
+	   TfLiteXNNPackDelegate	          924.532	    7.862	    7.849	  0.766%	 90.981%	     0.000	        1	[model/batch_normalization_79/FusedBatchNormV3;mode2, model/tf.math.truediv_39/truediv;model/tf.math.tru]:1513
+	             LceQuantize	          932.383	    0.423	    0.434	  0.042%	 91.023%	     0.000	        1	[model/PokeConv_13_1_conv/poke_sign/Sign_1;model/Po]:1140
+	              LceBconv2d	          932.817	    3.147	    3.125	  0.305%	 91.329%	     0.000	        1	[model/batch_normalization_80/FusedBatchNormV3;mode1]:1141
+	           STRIDED_SLICE	          935.944	    0.672	    0.692	  0.068%	 91.396%	     0.000	        1	[model/tf.__operators__.getitem_12/strided_slice;mo]:1157
+	                    TILE	          936.637	    1.532	    1.576	  0.154%	 91.550%	     0.000	        1	[model/tf.tile_3/Tile;model/tf.tile_3/Tile]:1218
+	   TfLiteXNNPackDelegate	          938.215	    8.655	    8.669	  0.847%	 92.396%	     0.000	        1	[model/average_pooling1d_12/ExpandDims;model/averag1, model/average_pooling2d_5/AvgPool;model/average_po]:1514
+	               TRANSPOSE	          946.888	    2.835	    2.824	  0.276%	 92.672%	     0.000	        1	[model/average_pooling1d_12/transpose;model/average]:1159
+	   TfLiteXNNPackDelegate	          949.714	    1.694	    1.660	  0.162%	 92.834%	     0.000	        1	[model/average_pooling1d_12/AvgPool;model/average_p]:1515
+	               TRANSPOSE	          951.377	    0.942	    1.005	  0.098%	 92.932%	     0.000	        1	[model/average_pooling1d_12/transpose_1;model/avera]:1161
+	   TfLiteXNNPackDelegate	          952.383	    1.573	    1.569	  0.153%	 93.086%	     0.000	        1	[model/dp_re_lu_41/sub;model/dp_re_lu_41/sub]:1516
+	                 GREATER	          953.955	    0.544	    0.560	  0.055%	 93.140%	     0.000	        1	[model/dp_re_lu_41/Greater;model/dp_re_lu_41/Greate]:1165
+	               SELECT_V2	          954.516	    0.683	    0.630	  0.061%	 93.202%	     0.000	        1	[model/dp_re_lu_41/SelectV2;model/dp_re_lu_41/Selec]:1166
+	   TfLiteXNNPackDelegate	          955.147	    3.947	    3.932	  0.384%	 93.586%	     0.000	        1	[model/batch_normalization_81/FusedBatchNormV3;mode1, model/average_pooling2d_4/AvgPool;model/average_po, model/tf.math.truediv_40/truediv;model/tf.math.tru]:1517
+	             LceQuantize	          959.081	    0.090	    0.093	  0.009%	 93.595%	     0.000	        1	[model/PokeConv_13_2_conv/poke_sign/Sign_1;model/Po]:1172
+	              LceBconv2d	          959.174	    3.581	    3.634	  0.355%	 93.950%	     0.000	        1	[model/batch_normalization_82/FusedBatchNormV3;mode1]:1173
+	   TfLiteXNNPackDelegate	          962.813	    0.304	    0.250	  0.024%	 93.974%	     0.000	        1	[model/dp_re_lu_42/sub;model/dp_re_lu_42/sub]:1518
+	                 GREATER	          963.065	    0.147	    0.147	  0.014%	 93.988%	     0.000	        1	[model/dp_re_lu_42/Greater;model/dp_re_lu_42/Greate]:1177
+	               SELECT_V2	          963.213	    0.161	    0.164	  0.016%	 94.004%	     0.000	        1	[model/dp_re_lu_42/SelectV2;model/dp_re_lu_42/Selec]:1178
+	   TfLiteXNNPackDelegate	          963.377	    1.439	    1.454	  0.142%	 94.146%	     0.000	        1	[model/batch_normalization_83/FusedBatchNormV3;mode1, model/tf.math.truediv_41/truediv;model/tf.math.tru, model/zero_padding2d_13/Pad;model/zero_padding2d_1]:1519
+	             LceQuantize	          964.834	    0.030	    0.031	  0.003%	 94.150%	     0.000	        1	[model/PokeConv_13_3_conv/poke_sign/Sign_1;model/Po]:1199
+	              LceBconv2d	          964.866	    1.881	    1.910	  0.186%	 94.336%	     0.000	        1	[model/batch_normalization_84/FusedBatchNormV3;mode1]:1200
+	   TfLiteXNNPackDelegate	          966.778	    1.923	    1.845	  0.180%	 94.516%	     0.000	        1	[model/dp_re_lu_43/sub;model/dp_re_lu_43/sub]:1520
+	                 GREATER	          968.625	    0.534	    0.554	  0.054%	 94.570%	     0.000	        1	[model/dp_re_lu_43/Greater;model/dp_re_lu_43/Greate]:1222
+	               SELECT_V2	          969.180	    0.608	    0.623	  0.061%	 94.631%	     0.000	        1	[model/dp_re_lu_43/SelectV2;model/dp_re_lu_43/Selec]:1223
+	   TfLiteXNNPackDelegate	          969.804	    5.572	    5.528	  0.540%	 95.171%	     0.000	        1	[model/batch_normalization_85/FusedBatchNormV3;mode1, model/tf.math.truediv_42/truediv;model/tf.math.tru]:1521
+	             LceQuantize	          975.335	    0.290	    0.296	  0.029%	 95.200%	     0.000	        1	[model/PokeConv_14_1_conv/poke_sign/Sign_1;model/Po]:1229
+	              LceBconv2d	          975.632	    1.610	    1.635	  0.160%	 95.359%	     0.000	        1	[model/batch_normalization_86/FusedBatchNormV3;mode1]:1230
+	           STRIDED_SLICE	          977.268	    0.196	    0.200	  0.020%	 95.379%	     0.000	        1	[model/tf.__operators__.getitem_13/strided_slice;mo]:1246
+	   TfLiteXNNPackDelegate	          977.468	    0.418	    0.418	  0.041%	 95.420%	     0.000	        1	[model/average_pooling1d_13/ExpandDims;model/averag]:1522
+	               TRANSPOSE	          977.887	    1.463	    1.427	  0.139%	 95.559%	     0.000	        1	[model/average_pooling1d_13/transpose;model/average]:1248
+	   TfLiteXNNPackDelegate	          979.316	    0.444	    0.449	  0.044%	 95.603%	     0.000	        1	[model/average_pooling1d_13/AvgPool;model/average_p]:1523
+	               TRANSPOSE	          979.766	    0.158	    0.141	  0.014%	 95.617%	     0.000	        1	[model/average_pooling1d_13/transpose_1;model/avera]:1250
+	   TfLiteXNNPackDelegate	          979.908	    0.314	    0.319	  0.031%	 95.648%	     0.000	        1	[model/dp_re_lu_44/sub;model/dp_re_lu_44/sub]:1524
+	                 GREATER	          980.228	    0.131	    0.135	  0.013%	 95.661%	     0.000	        1	[model/dp_re_lu_44/Greater;model/dp_re_lu_44/Greate]:1254
+	               SELECT_V2	          980.364	    0.161	    0.161	  0.016%	 95.677%	     0.000	        1	[model/dp_re_lu_44/SelectV2;model/dp_re_lu_44/Selec]:1255
+	   TfLiteXNNPackDelegate	          980.526	    0.894	    0.922	  0.090%	 95.767%	     0.000	        1	[model/batch_normalization_87/FusedBatchNormV3;mode1, model/tf.math.truediv_43/truediv;model/tf.math.tru]:1525
+	             LceQuantize	          981.449	    0.027	    0.030	  0.003%	 95.770%	     0.000	        1	[model/PokeConv_14_2_conv/poke_sign/Sign_1;model/Po]:1261
+	              LceBconv2d	          981.479	    3.726	    3.632	  0.355%	 96.124%	     0.000	        1	[model/batch_normalization_88/FusedBatchNormV3;mode1]:1262
+	   TfLiteXNNPackDelegate	          985.113	    0.185	    0.179	  0.018%	 96.142%	     0.000	        1	[model/dp_re_lu_45/sub;model/dp_re_lu_45/sub]:1526
+	                 GREATER	          985.293	    0.130	    0.132	  0.013%	 96.155%	     0.000	        1	[model/dp_re_lu_45/Greater;model/dp_re_lu_45/Greate]:1280
+	               SELECT_V2	          985.426	    0.159	    0.160	  0.016%	 96.170%	     0.000	        1	[model/dp_re_lu_45/SelectV2;model/dp_re_lu_45/Selec]:1281
+	   TfLiteXNNPackDelegate	          985.587	    1.585	    1.567	  0.153%	 96.323%	     0.000	        1	[model/batch_normalization_89/FusedBatchNormV3;mode1, model/tf.math.truediv_44/truediv;model/tf.math.tru, model/zero_padding2d_14/Pad;model/zero_padding2d_1]:1527
+	             LceQuantize	          987.156	    0.032	    0.031	  0.003%	 96.327%	     0.000	        1	[model/PokeConv_14_3_conv/poke_sign/Sign_1;model/Po]:1287
+	              LceBconv2d	          987.188	    1.904	    1.941	  0.190%	 96.516%	     0.000	        1	[model/batch_normalization_90/FusedBatchNormV3;mode1]:1288
+	   TfLiteXNNPackDelegate	          989.131	    1.906	    1.847	  0.180%	 96.696%	     0.000	        1	[model/dp_re_lu_46/sub;model/dp_re_lu_46/sub]:1528
+	                 GREATER	          990.981	    0.559	    0.572	  0.056%	 96.752%	     0.000	        1	[model/dp_re_lu_46/Greater;model/dp_re_lu_46/Greate]:1308
+	               SELECT_V2	          991.553	    0.612	    0.622	  0.061%	 96.813%	     0.000	        1	[model/dp_re_lu_46/SelectV2;model/dp_re_lu_46/Selec]:1309
+	   TfLiteXNNPackDelegate	          992.176	    5.524	    5.573	  0.544%	 97.357%	     0.000	        1	[model/batch_normalization_91/FusedBatchNormV3;mode1, model/tf.math.truediv_45/truediv;model/tf.math.tru]:1529
+	             LceQuantize	          997.751	    0.293	    0.300	  0.029%	 97.386%	     0.000	        1	[model/PokeConv_15_1_conv/poke_sign/Sign_1;model/Po]:1315
+	              LceBconv2d	          998.053	    1.665	    1.648	  0.161%	 97.547%	     0.000	        1	[model/batch_normalization_92/FusedBatchNormV3;mode1]:1316
+	           STRIDED_SLICE	          999.701	    0.206	    0.199	  0.019%	 97.567%	     0.000	        1	[model/tf.__operators__.getitem_14/strided_slice;mo]:1332
+	   TfLiteXNNPackDelegate	          999.902	    0.417	    0.415	  0.041%	 97.607%	     0.000	        1	[model/average_pooling1d_14/ExpandDims;model/averag1]:1530
+	               TRANSPOSE	         1000.318	    1.386	    1.420	  0.139%	 97.746%	     0.000	        1	[model/average_pooling1d_14/transpose;model/average]:1334
+	   TfLiteXNNPackDelegate	         1001.739	    0.447	    0.447	  0.044%	 97.790%	     0.000	        1	[model/average_pooling1d_14/AvgPool;model/average_p]:1531
+	               TRANSPOSE	         1002.187	    0.144	    0.143	  0.014%	 97.804%	     0.000	        1	[model/average_pooling1d_14/transpose_1;model/avera]:1336
+	   TfLiteXNNPackDelegate	         1002.331	    0.321	    0.332	  0.032%	 97.836%	     0.000	        1	[model/dp_re_lu_47/sub;model/dp_re_lu_47/sub]:1532
+	                 GREATER	         1002.664	    0.131	    0.133	  0.013%	 97.849%	     0.000	        1	[model/dp_re_lu_47/Greater;model/dp_re_lu_47/Greate]:1340
+	               SELECT_V2	         1002.798	    0.303	    0.174	  0.017%	 97.866%	     0.000	        1	[model/dp_re_lu_47/SelectV2;model/dp_re_lu_47/Selec]:1341
+	   TfLiteXNNPackDelegate	         1002.973	    0.921	    0.912	  0.089%	 97.955%	     0.000	        1	[model/batch_normalization_93/FusedBatchNormV3;mode1, model/tf.math.truediv_46/truediv;model/tf.math.tru]:1533
+	             LceQuantize	         1003.886	    0.030	    0.030	  0.003%	 97.958%	     0.000	        1	[model/PokeConv_15_2_conv/poke_sign/Sign_1;model/Po]:1347
+	              LceBconv2d	         1003.917	    3.591	    3.603	  0.352%	 98.310%	     0.000	        1	[model/batch_normalization_94/FusedBatchNormV3;mode2]:1348
+	   TfLiteXNNPackDelegate	         1007.522	    0.184	    0.187	  0.018%	 98.328%	     0.000	        1	[model/dp_re_lu_48/sub;model/dp_re_lu_48/sub]:1534
+	                 GREATER	         1007.710	    0.132	    0.132	  0.013%	 98.341%	     0.000	        1	[model/dp_re_lu_48/Greater;model/dp_re_lu_48/Greate]:1366
+	               SELECT_V2	         1007.843	    0.160	    0.159	  0.016%	 98.356%	     0.000	        1	[model/dp_re_lu_48/SelectV2;model/dp_re_lu_48/Selec]:1367
+	   TfLiteXNNPackDelegate	         1008.003	    1.539	    1.570	  0.153%	 98.510%	     0.000	        1	[model/batch_normalization_95/FusedBatchNormV3;mode2, model/tf.math.truediv_47/truediv;model/tf.math.tru, model/zero_padding2d_15/Pad;model/zero_padding2d_1]:1535
+	             LceQuantize	         1009.575	    0.031	    0.032	  0.003%	 98.513%	     0.000	        1	[model/PokeConv_15_3_conv/poke_sign/Sign_1;model/Po]:1373
+	              LceBconv2d	         1009.608	    1.994	    1.932	  0.189%	 98.702%	     0.000	        1	[model/batch_normalization_96/FusedBatchNormV3;mode2]:1374
+	   TfLiteXNNPackDelegate	         1011.542	    1.835	    1.849	  0.181%	 98.882%	     0.000	        1	[model/dp_re_lu_49/sub;model/dp_re_lu_49/sub]:1536
+	                 GREATER	         1013.394	    0.552	    0.564	  0.055%	 98.937%	     0.000	        1	[model/dp_re_lu_49/Greater;model/dp_re_lu_49/Greate]:1394
+	               SELECT_V2	         1013.959	    0.608	    0.622	  0.061%	 98.998%	     0.000	        1	[model/dp_re_lu_49/SelectV2;model/dp_re_lu_49/Selec]:1395
+	   TfLiteXNNPackDelegate	         1014.582	   10.252	   10.262	  1.002%	100.000%	     0.000	        1	[StatefulPartitionedCall:0]:1537
+
+============================== Top by Computation Time ==============================
+	             [node type]	          [start]	  [first]	 [avg ms]	     [%]	  [cdf%]	  [mem KB]	[times called]	[Name]
+	   TfLiteXNNPackDelegate	          343.207	   26.095	   25.741	  2.514%	  2.514%	     0.000	        1	[model/batch_normalization_19/FusedBatchNormV3;mode1, model/tf.math.truediv_9/truediv;model/tf.math.true]:1433
+	   TfLiteXNNPackDelegate	          223.641	   25.433	   25.539	  2.494%	  5.007%	     0.000	        1	[model/batch_normalization_13/FusedBatchNormV3;mode1, model/tf.math.truediv_6/truediv;model/tf.math.true]:1425
+	   TfLiteXNNPackDelegate	          103.662	   25.306	   25.428	  2.483%	  7.490%	     0.000	        1	[model/batch_normalization_7/FusedBatchNormV3;model1, model/tf.math.truediv_3/truediv;model/tf.math.true]:1417
+	   TfLiteXNNPackDelegate	          387.596	   24.185	   24.163	  2.359%	  9.850%	     0.000	        1	[model/average_pooling1d_2/ExpandDims;model/average1, model/average_pooling2d_1/AvgPool;model/average_po]:1434
+	   TfLiteXNNPackDelegate	          700.452	   17.299	   17.339	  1.693%	 11.543%	     0.000	        1	[model/average_pooling1d_6/ExpandDims;model/average1, model/average_pooling2d_3/AvgPool;model/average_po]:1466
+	   TfLiteXNNPackDelegate	            9.328	   17.361	   17.308	  1.690%	 13.233%	     0.000	        1	[model/dp_re_lu_1/sub;model/dp_re_lu_1/sub]:1410
+	   TfLiteXNNPackDelegate	          316.159	   16.368	   16.442	  1.606%	 14.839%	     0.000	        1	[model/dp_re_lu_10/sub;model/dp_re_lu_10/sub]:1432
+	   TfLiteXNNPackDelegate	          196.574	   16.326	   16.338	  1.595%	 16.434%	     0.000	        1	[model/dp_re_lu_7/sub;model/dp_re_lu_7/sub]:1424
+	   TfLiteXNNPackDelegate	           76.359	   16.372	   16.306	  1.592%	 18.026%	     0.000	        1	[model/dp_re_lu_4/sub;model/dp_re_lu_4/sub]:1416
+	   TfLiteXNNPackDelegate	          450.216	   17.292	   16.143	  1.576%	 19.602%	     0.000	        1	[model/batch_normalization_21/FusedBatchNormV3;mode1, model/average_pooling2d/AvgPool;model/average_pool, model/tf.math.truediv_10/truediv;model/tf.math.tru]:1437
+
+Number of nodes executed: 375
+============================== Summary by node type ==============================
+	             [Node type]	  [count]	  [avg ms]	    [avg %]	    [cdf %]	  [mem KB]	[times called]
+	   TfLiteXNNPackDelegate	      129	   606.327	    59.217%	    59.217%	     0.000	      129
+	              LceBconv2d	       48	   141.680	    13.837%	    73.054%	     0.000	       48
+	               TRANSPOSE	       30	    97.064	     9.480%	    82.534%	     0.000	       30
+	               SELECT_V2	       50	    64.616	     6.311%	    88.844%	     0.000	       50
+	                 GREATER	       50	    47.333	     4.623%	    93.467%	     0.000	       50
+	             LceQuantize	       48	    22.213	     2.169%	    95.637%	     0.000	       48
+	           STRIDED_SLICE	       15	    22.089	     2.157%	    97.794%	     0.000	       15
+	                    TILE	        4	    17.810	     1.739%	    99.533%	     0.000	        4
+	                 CONV_2D	        1	     4.779	     0.467%	   100.000%	     0.000	        1
+
+Timings (microseconds): count=50 first=1026075 curr=1022345 min=1019182 max=1029392 avg=1.0241e+06 std=2192
+Memory (bytes): count=0
+375 nodes observed
+
+
+
