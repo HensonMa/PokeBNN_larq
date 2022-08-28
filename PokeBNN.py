@@ -27,9 +27,8 @@ class DPReLU(tf.keras.layers.Layer):
 
 
 class PokeBNN:
-     '''
-     larq implementation of PokeBNN, phase=1 for non-quantized phase for training, phase=2 for normal quantized version
-     '''
+    """ larq implementation of PokeBNN, phase=1 for non-quantized phase for training, phase=2 for normal quantized version."""
+
     def __init__(self, num_classes=1000, phase=1, act_B=None) -> None:
         self.num_classes = num_classes
 
