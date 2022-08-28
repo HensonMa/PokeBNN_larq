@@ -89,70 +89,46 @@ def _clipped_gradient_unsign(x, dy, clip_value):
     return tf.where(0 < x < clip_value, dy, zeros)
 
 
-def ste_sign(x: tf.Tensor, clip_value: float = 1.0) -> tf.Tensor:
+def ste_sign(x: tf.Tensor, clip_value=None) -> tf.Tensor:
     @tf.custom_gradient
     def _call(x):
-        if isinstance(clip_value, float):
-            B = clip_value
-        else:
-            B = tf.identity(x)
-            if len(B.shape) == 2:
-                B = tf.math.reduce_max(B, axis=0, keepdims=1)
-            else:
-                B = tf.math.reduce_max(B, axis=(0, 1, 2), keepdims=1)
 
         def grad(dy):
-            return _clipped_gradient(x, dy, B)
+            return _clipped_gradient(x, dy, clip_value)
 
         return math.sign(x), grad
 
     return _call(x)
 
 
-def Poke_sign(x: tf.Tensor, precision: int = 2, clip_value: Union[float, str] = None) -> tf.Tensor:
+def Poke_sign(x: tf.Tensor, precision: int = 2, clip_value=None) -> tf.Tensor:
     @tf.custom_gradient
     def _call(x):
 
         C_b = 2 ** (precision - 1) - 0.5
-        if isinstance(clip_value, float):
-            B = clip_value
-        else:
-            B = tf.identity(x)
-            if len(B.shape) == 2:
-                B = tf.math.reduce_max(B, axis=0, keepdims=1)
-            else:
-                B = tf.math.reduce_max(B, axis=(0, 1, 2), keepdims=1)
 
         def grad(dy):
-            return _clipped_gradient(x, dy, B)
+            return _clipped_gradient(x, dy, clip_value)
 
-        x = tf.math.divide(x, B)*C_b
+        x = tf.math.divide(x, clip_value)*C_b
         x = tf.math.round(tf.clip_by_value(x, -C_b + 1e-7, C_b - 1e-7))
-        x = tf.cast(tf.math.multiply(x, B) / C_b, tf.float32)
+        x = tf.cast(tf.math.multiply(x, clip_value) / C_b, tf.float32)
         return x, grad
 
     return _call(x)
 
 
-def Poke_unsign(x: tf.Tensor, precision: int = 2, clip_value: Union[float, str] = None) -> tf.Tensor:
+def Poke_unsign(x: tf.Tensor, precision: int = 2, clip_value=None) -> tf.Tensor:
     @tf.custom_gradient
     def _call(x):
-        if isinstance(clip_value, float):
-            B = clip_value
-        else:
-            B = tf.identity(x)
-            if len(B.shape) == 2:
-                B = tf.math.reduce_max(B, axis=0, keepdims=1)
-            else:
-                B = tf.math.reduce_max(B, axis=(0, 1, 2), keepdims=1)
 
         def grad(dy):
-            return _clipped_gradient(x, dy, B)
+            return _clipped_gradient(x, dy, clip_value)
 
         C_b = 2 ** precision
-        x = tf.math.divide(x, B)*C_b
+        x = tf.math.divide(x, clip_value)*C_b
         x = tf.math.round(tf.clip_by_value(x, 0, C_b - 1e-7))
-        x = tf.cast(tf.math.multiply(x, B) / C_b, tf.float32)
+        x = tf.cast(tf.math.multiply(x, clip_value) / C_b, tf.float32)
         return x, grad
 
     return _call(x)
@@ -346,28 +322,61 @@ class SteSign(_BaseQuantizer):
         return {**super().get_config(), "clip_value": self.clip_value}
 
 
+@utils.register_keras_custom_object
 class PokeSign(_BaseQuantizer):
     precision = 1
 
-    def __init__(self, precision: int = 2, clip_value: Union[float, str] = None, signed: bool = True,
+    def __init__(self, precision: int = 2, clip_way: str = "binary_act", clip_B: int = 3, phase: int = 1, signed: bool = True, alpha: float = 0.9,
                  **kwargs):
-        self.clip_value = clip_value
+        self.clip_way = clip_way
         self.precision = precision
         self.signed = signed
+        self.clip_B = clip_B
+        self.phase = phase
+        self.alpha = alpha
+        self.times = 0
+        if self.phase == 1 and self.clip_way == "mul_act":
+            self.clip_B = None
         super().__init__(**kwargs)
 
     def call(self, inputs):
-        if self.precision == 1:
-            outputs = ste_sign(inputs, clip_value=self.clip_value)
-        else:
-            if self.signed:
-                outputs = Poke_sign(inputs, precision=self.precision, clip_value=self.clip_value)
+        if self.phase == 1:
+            if self.clip_way == "mul_act":
+                if self.times <=1:
+                    self.clip_B = tf.math.reduce_max(inputs)
+                    self.times += 1
+                else:
+                    self.clip_B = (1-self.alpha)*self.clip_B + self.alpha * tf.math.reduce_max(inputs)
+                outputs = tf.identity(inputs)
+            elif self.clip_way == "binary_act":
+                outputs = ste_sign(inputs, clip_value=3.0)
             else:
-                outputs = Poke_unsign(inputs, precision=self.precision, clip_value=self.clip_value)
-        return super().call(outputs)
+                outputs = tf.identity(inputs)
+
+            return super().call(outputs)
+        else:
+            if self.clip_way == "weight":
+                B = tf.identity(inputs)
+                if len(B.shape) == 2:
+                    B = tf.math.reduce_max(B, axis=0, keepdims=1)
+                else:
+                    B = tf.math.reduce_max(B, axis=(0, 1, 2), keepdims=1)
+            elif self.clip_way == "binary_act":
+                B = 3.0
+            else:
+                B = self.clip_B
+
+            if self.precision == 1:
+                outputs = ste_sign(inputs, clip_value=B)
+            else:
+                if self.signed:
+                    outputs = Poke_sign(inputs, precision=self.precision, clip_value=B)
+                else:
+                    outputs = Poke_unsign(inputs, precision=self.precision, clip_value=B)
+            return super().call(outputs)
 
     def get_config(self):
-        return {**super().get_config(), "precision": self.precision, "clip_value": self.clip_value}
+        return {**super().get_config(), "precision": self.precision, "clip_way": self.clip_way}
 
 
 @utils.register_alias("approx_sign")
